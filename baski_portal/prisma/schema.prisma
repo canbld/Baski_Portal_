@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AuthorizedUser {
+  id        Int      @id @default(autoincrement())
+  tcNo      String?  @unique
+  fullName  String
+  role      String
+  unitId    String?
+  unitName  String?
+  createdAt DateTime @default(now())
+  bridgeId  String   @unique
+}
+
+model Shift {
+  id         Int      @id @default(autoincrement())
+  staffId    String
+  staffName  String
+  unitId     String
+  unitName   String
+  shiftDate  DateTime
+  shiftTime  String
+  createdBy  String
+  createdAt  DateTime @default(now())
+  duty       String
+  staffPhone String?
+}
+
+model OrganizationMapping {
+  id          Int    @id @default(autoincrement())
+  subUnitName String @unique
+  parentName  String
+}
+
+model DynamicNav {
+  id        Int      @id @default(autoincrement())
+  label     String   @unique
+  href      String
+  icon      String
+  category  String
+  subGroup  String?
+  createdAt DateTime @default(now())
+}
